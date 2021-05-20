@@ -1,0 +1,12 @@
+{
+  "name": "pollychart",
+  "version": "1.0.0",
+  "description": "Help user to create polls and visualize them with charts",
+  "main": "index.js",
+  "author": "Alan Anguiano",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^12.5.3",
+    "dotenv": "^9.0.2"
+  }
+}
