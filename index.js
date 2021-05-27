@@ -123,7 +123,6 @@ const removeAllReactions = (msg) => {
 // AN IDEA IS ADD A DRAW CASE
 
 bot.on('message', function (msgObject) {
-  console.log("It works!")
   if (itNeedResponse(msgObject)) {
     if (selectedCommandWord === commandWords[0]) {
       createPoll(msgObject);
@@ -132,9 +131,5 @@ bot.on('message', function (msgObject) {
     }
   }
 })
-
-bot.on('ready', () => {
-  console.log('Listo!');
-});
 
 bot.login(process.env.BOT_TOKEN);
