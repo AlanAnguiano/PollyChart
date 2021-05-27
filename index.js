@@ -1,8 +1,8 @@
 require('dotenv').config();
 
 const txtBotIdentifier = "!";
-// Time default 15 mins to close the poll, in mil secs is 900,000
-const timeoutClosePoll = 10000
+// Time default 10 mins to close the poll, in mil secs is 600,000
+const timeoutClosePoll = 600000;
 const commandWords = ['poll', 'graph'];
 const numEmojis = ["1⃣", "2⃣", "3⃣", "4⃣", "5⃣", "6⃣", "7⃣", "8⃣", "9⃣", "🔟", "0️⃣"];
 const topMedals = ["first_place", "second_place", "third_place"]
