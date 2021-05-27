@@ -4,8 +4,9 @@ const txtBotIdentifier = "!";
 // Time default 15 mins to close the poll, in mil secs is 900,000
 const timeoutClosePoll = 10000
 const commandWords = ['poll', 'graph'];
-const numEmojis = ["1⃣", "2⃣", "3⃣", "4⃣", "5⃣", "6⃣", "7⃣", "8⃣", "9⃣", "🔟", "0️⃣"];
-const topMedals = ["first_place", "second_place", "third_place"]
+const numEmojis = ["1⃣", "2⃣", "3⃣", "4⃣", "5⃣", "6⃣", "7⃣", "8⃣", "9⃣", "🔟"];
+const topMedals = ["first_place", "second_place", "third_place"];
+const blockedSignal = ':no_entry_sign:';
 var selectedCommandWord = '';
 var emojiOptionTxtObj = {}
 const Discord = require('discord.js');
@@ -36,14 +37,23 @@ const createPoll = (msg) => {
   // TODO:
   // IT REMOVES LITERALLY EVERY WHITESPACE XD EVEN IN AN OPTION ****BUGGG***
   const pollOptions = cleanedWords[2].replace(/ /g,'').split(',');
+  if(validatesLongOfOptions(pollOptions, msg)){
+    var pollTxt = createTextPoll(pollTitle, pollOptions);
+    msg.channel.send(pollTxt)
+      .then((msgSent) => {
+        addOptionsReactToPoll(msgSent, pollOptions.length)
+        //countVotes(msgSent)
+        timeoutForPoll(pollTxt, msgSent);
+      });
+  }
+}
 
-  var pollTxt = createTextPoll(pollTitle, pollOptions);
-  msg.channel.send(pollTxt)
-    .then((msgSent) => {
-      addOptionsReactToPoll(msgSent, pollOptions.length)
-      //countVotes(msgSent)
-      timeoutForPoll(pollTxt, msgSent);
-    });
+const validatesLongOfOptions = (options, msg) => {
+  if (options.length > 10) {
+    msg.channel.send(`${blockedSignal} The maximum number of options is 10 ${blockedSignal}`)
+    return false;
+  }
+  return true;
 }
 
 const timeoutForPoll = (pollTxt, msg) => {
@@ -128,6 +138,7 @@ const removeAllReactions = (msg) => {
 // TODO
 // AN IDEA IS ADD A DRAW CASE
 
+//TODO the poll does not support more than 10 options
 bot.on('message', function (msgObject) {
   if (itNeedResponse(msgObject)) {
     if (selectedCommandWord === commandWords[0]) {
