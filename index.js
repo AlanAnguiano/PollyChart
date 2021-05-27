@@ -74,6 +74,12 @@ const addOptionsReactToPoll = (msg, optionsSize) => {
 }
 
 const displayTopResults = (pollTxt, results, msg) => {
+  console.log(results)
+  if (results.length === 0) {
+    msg.edit(`${pollTxt}\n**Nobody voted for any option :frowning2:**\n\n`)
+    return;
+  }
+
   let titleWord = results.length > 1 ? "Top Results" : "Winner"
   let topOptionsVoted = ''
   results.forEach((element, index) => {
